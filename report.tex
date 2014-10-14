@@ -1,0 +1,32 @@
+\documentclass[a4paper,10pt,BCOR=7.5mm,DIV=14]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{longtable}
+% \usepackage{helvet}
+% \usepackage{lmodern}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\setcounter{LTchunksize}{10}
+
+%opening
+\title{Titel}
+\author{Autor}
+
+\begin{document}
+
+% \maketitle
+
+\section*{Meldungsliste vom TT.MM.JJJJ bis TT.MM.JJJJ}
+
+\begin{longtable}{|l|c|p{11cm}|}
+  \hline
+  \textbf{Datum/Uhrzeit} & \textbf{Typ} & \textbf{Meldung}\\
+  \hline \hline
+  \endhead
+  \hline \endfoot
+  \input{report-data.tex}
+\end{longtable}
+
+\end{document}
+
