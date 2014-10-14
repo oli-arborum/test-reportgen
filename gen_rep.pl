@@ -2,7 +2,6 @@
 
 use strict;
 use DBI;
-use POSIX qw(strftime);
 
 my $dbargs = {AutoCommit => 0, PrintError => 1};
 my $dbh = DBI->connect("dbi:SQLite:dbname=msg.db", "", "", $dbargs);
