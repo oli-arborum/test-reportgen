@@ -3,10 +3,16 @@
 use strict;
 use DBI;
 
+sub escape_latex
+{
+  my($text) = @_;
+  $text =~ s/(\\)/\\textbackslash /g;
+  $text =~ s/([\{\}_\^#&\$%~])/\\$1/g;
+  return $text;
+}
+
 my $dbargs = {AutoCommit => 0, PrintError => 1};
 my $dbh = DBI->connect("dbi:SQLite:dbname=msg.db", "", "", $dbargs);
-
-my $t = time() - 24*60*60*10; # start 10 days back
 
 my ($timestamp, $ms, $type, $message) = "";
 
@@ -16,7 +22,7 @@ my $res = $dbh->selectall_arrayref("SELECT strftime('%d.%m.%Y %H:%M:%S', timesta
 foreach my $row (@$res) {
   ($timestamp, $ms, $type, $message) = @$row;
   # print $timestamp . "." . sprintf("%03d", $ms) . " -> ($type) $message\n";
-  print $timestamp . "." . sprintf("%03d", $ms) . " & $type & $message\\\\\n\\hline\n";
+  print $timestamp . "." . sprintf("%03d", $ms) . " & $type & " . escape_latex($message) . "\\\\\n\\hline\n";
 }
 
 $dbh->disconnect();
