@@ -24,6 +24,9 @@ for( my $i=0; $i<100; ++$i ){
     $msg .= $liarr[$j + $off];
   }
   my $type = int(rand(6));
+  if( $i == 0 ) {
+    $msg = "Test \\LaTeX {SonderZeichen} & etc.";
+  }
   print strftime( "%d.%m.%Y %H:%M:%S", localtime($t) ) . "." . sprintf("%03d", $ms) . " -> $msg\n";
 
   $dbh->do("INSERT INTO messages (timestamp, msec, type, message) VALUES ($t, $ms, $type, \"$msg\");");
